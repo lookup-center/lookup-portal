@@ -1,0 +1,403 @@
+/* ============================================================================
+   기획본부 디자인 토큰 — 단일 원본
+   ----------------------------------------------------------------------------
+   이 파일이 원본이다. Artifact로 렌더한 디자인 시스템 문서는 사본이며,
+   토큰을 바꿀 때는 항상 이 파일을 먼저 고친다.
+
+   BI(2026-09-30 대표 결정): 기본 강조색은 바로바로론 BI 남색 #0E5296(흰 바탕 대비 7.9:1).
+   BI 하늘색 #3AA9C6은 흰 바탕 대비 2.7:1이라 글자에 쓰지 않고 띠·그래픽 같은 장식에만 쓴다.
+
+   적용 대상
+     · 업무 콘솔(22번)      — <link>로 직접 불러 쓴다
+     · 기획본부 뉴스(21번)   — 단일 파일로 GitHub Pages에 올라가므로 :root 블록을
+                              이 파일에서 복사해 인라인한다(import 불가)
+     · 메일 본문            — 메일 클라이언트가 CSS 변수를 지원하지 않으므로
+                              여기 값을 인라인 스타일로 번역해 쓴다
+
+   테마: 라이트를 bare :root에 전부 정의하고, 다크는 토큰만 두 번 재정의한다
+         (prefers-color-scheme + data-theme). 색을 미디어쿼리 안에서만 정의하지 않는다.
+   ========================================================================== */
+
+:root{
+  /* ── 표면 ─────────────────────────────────────────────────────────────── */
+  --bg:#F1F4F8;           /* 페이지 바탕 */
+  --surface:#FFFFFF;      /* 패널·카드 */
+  --surface-2:#F4F7FB;    /* 패널 안의 한 단계 들어간 면 */
+
+  /* ── 잉크 ─────────────────────────────────────────────────────────────── */
+  --ink:#111418;          /* 본문·제목 */
+  --ink-2:#333A45;        /* 보조 본문 */
+  --muted:#5B6473;        /* 캡션·비활성 (대비 4.5:1 이상 유지) */
+
+  /* ── 경계 ─────────────────────────────────────────────────────────────── */
+  --rule:#DCE3EB;         /* 기본 구분선 */
+  --rule-strong:#A3ACB9;  /* 강조 구분선·입력 테두리 */
+
+  /* ── 강조 ─────────────────────────────────────────────────────────────── */
+  --accent:#0E5296;       /* BI 남색 */
+  --accent-ink:#FFFFFF;   /* accent 위에 얹는 글자색 */
+  --accent-soft:#E5EEF7;  /* accent 배경의 옅은 면 */
+
+  /* ── BI(바로바로론) ────────────────────────────────────────────────────
+     --bi-*    : 테마와 무관한 고정색. 그래픽 그라데이션·로고 주변 등 "브랜드 그림"에만 쓴다.
+                 글자색으로 쓰지 않는다(다크에서도 값이 그대로라 대비가 무너진다).
+     --brand-* : 테마에 따라 바뀌는 브랜드 면·글자. 메뉴 띠·푸터 바탕(--brand-navy-deep),
+                 제호 글자(--brand-navy), 장식 띠(--brand-sky), 옅은 면(--brand-sky-soft).
+     --on-brand: --brand-navy-deep·--bi-* 위에 얹는 글자색 */
+  --bi-navy:#0E5296;      --bi-navy-deep:#0A3D70;  --bi-sky:#3AA9C6;
+  --brand-navy:#0E5296;   --brand-navy-deep:#0A3D70;
+  --brand-sky:#3AA9C6;    --brand-sky-soft:#E3F3F8;
+  --on-brand:#FFFFFF;
+
+  /* ── 상태(의미) ────────────────────────────────────────────────────────
+     UI 상태 전용이다. 주가 등락(--rise/--fall)과 섞어 쓰지 않는다.
+     같은 빨강이라도 "경고"와 "상승"은 다른 개념이라 따로 둬야 나중에 갈라진다. */
+  --danger:#C62828;       --danger-soft:#FBEBEB;   /* 오류·마감 경과·결측 */
+  --warn:#9A5B00;         --warn-soft:#FBF0E2;     /* 보류·확인 필요 */
+  --ok:#1B7A4B;           --ok-soft:#E6F4ED;       /* 완료·정상 */
+  --info:#1E63B4;         --info-soft:#E7F0FA;     /* 안내·진행 중 */
+  --neutral:#5B6473;      --neutral-soft:#EEF1F5;  /* 미착수·해당 없음 */
+
+  /* ── 시장 방향(21번 뉴스 전용) ─────────────────────────────────────────
+     한국 증시 관례: 상승 빨강, 하락 파랑. 값은 상태색과 같아도 의미가 다르므로
+     이름을 따로 둔다. 등락 색만 바꾸고 싶을 때 UI 경고색이 딸려 바뀌지 않는다. */
+  --rise:#C62828;         --rise-soft:#FBEBEB;
+  --fall:#1E63B4;         --fall-soft:#E7F0FA;
+  --flat:#5B6473;
+  --chart-grid:#E5E9EF;
+  --band:#F3D9D9;         /* 지수 차트 강조 띠 */
+  --masthead-rule:#0E5296;/* 제호 아래 굵은 선 */
+
+  /* ── 서체 ─────────────────────────────────────────────────────────────── */
+  --font-display:"Gothic A1","IBM Plex Sans KR","Noto Sans KR","Malgun Gothic",sans-serif;
+  --font-body:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+
+  /* ── 타입 스케일 ───────────────────────────────────────────────────────
+     화면마다 본문 기준만 다르게 고른다(콘솔 --text-base, 뉴스 --text-lg).
+     스케일 자체는 공유해 두 화면의 위계가 어긋나지 않게 한다. */
+  --text-xs:12px;
+  --text-sm:13px;
+  --text-md:14px;
+  --text-base:15.5px;
+  --text-lg:17px;
+  --text-xl:20px;
+  --text-2xl:24px;
+  --text-3xl:32px;
+  --text-4xl:40px;
+
+  --leading-tight:1.32;   /* 제목 */
+  --leading-normal:1.7;   /* UI 본문 */
+  --leading-relaxed:1.85; /* 읽는 지면 본문 */
+  --tracking-label:.05em; /* 대문자·라벨 */
+
+  /* ── 간격 (4px 기반) ──────────────────────────────────────────────────── */
+  --sp-1:4px;
+  --sp-2:6px;
+  --sp-3:8px;
+  --sp-4:12px;
+  --sp-5:16px;
+  --sp-6:20px;
+  --sp-7:24px;
+  --sp-8:32px;
+  --sp-9:48px;
+
+  /* ── 모서리 ───────────────────────────────────────────────────────────── */
+  --r-sm:4px;
+  --r-md:6px;
+  --r-lg:8px;
+  --r-xl:12px;
+  --r-2xl:14px;
+
+  /* ── 그림자 ───────────────────────────────────────────────────────────── */
+  --shadow-1:0 1px 0 rgba(17,20,24,.05);      /* 패널 */
+  --shadow-2:0 -6px 20px rgba(17,20,24,.18);  /* 드로어·모달 */
+
+  /* ── 하위 호환 별칭 ────────────────────────────────────────────────────
+     기존 코드가 쓰던 이름. 새로 쓰는 곳에서는 위의 의미 토큰을 쓴다.
+     두 화면의 마이그레이션이 끝나면 지운다. */
+  --up:var(--rise);       --up-soft:var(--rise-soft);
+  --down:var(--fall);     --down-soft:var(--fall-soft);
+  --radius:var(--r-lg);
+  --shadow:var(--shadow-1);
+}
+
+/* 다크: OS 설정만 있고 명시 선택이 없는 상태(대부분의 사용자) */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1319;
+    --surface:#161C25;
+    --surface-2:#1B222D;
+    --ink:#E9ECF1;
+    --ink-2:#C3C9D3;
+    --muted:#98A1B1;
+    --rule:#28303D;
+    --rule-strong:#4A5466;
+    --accent:#8CC0EE;
+    --accent-ink:#0E1319;
+    --accent-soft:#16283D;
+    --brand-navy:#8CC0EE;   --brand-navy-deep:#0B2440;
+    --brand-sky:#4DB9D5;    --brand-sky-soft:#12303A;
+    --on-brand:#FFFFFF;
+
+    --danger:#F26C6A;     --danger-soft:#3A2024;
+    --warn:#E0A458;       --warn-soft:#352716;
+    --ok:#6FC79A;         --ok-soft:#16301F;
+    --info:#62A6F2;       --info-soft:#1A2A40;
+    --neutral:#98A1B1;    --neutral-soft:#222A36;
+
+    --rise:#F26C6A;       --rise-soft:#3A2024;
+    --fall:#62A6F2;       --fall-soft:#1A2A40;
+    --flat:#98A1B1;
+    --chart-grid:#242C38;
+    --band:#3A2024;
+    --masthead-rule:#8CC0EE;
+
+    --shadow-1:none;
+    --shadow-2:0 -6px 20px rgba(0,0,0,.45);
+  }
+}
+
+/* 다크: 사용자가 직접 고른 경우(토글이 OS 설정을 이긴다) */
+:root[data-theme="dark"]{
+  --bg:#0E1319;
+  --surface:#161C25;
+  --surface-2:#1B222D;
+  --ink:#E9ECF1;
+  --ink-2:#C3C9D3;
+  --muted:#98A1B1;
+  --rule:#28303D;
+  --rule-strong:#4A5466;
+  --accent:#8CC0EE;
+  --accent-ink:#0E1319;
+  --accent-soft:#16283D;
+  --brand-navy:#8CC0EE;   --brand-navy-deep:#0B2440;
+  --brand-sky:#4DB9D5;  --brand-sky-soft:#12303A;
+  --on-brand:#FFFFFF;
+
+  --danger:#F26C6A;     --danger-soft:#3A2024;
+  --warn:#E0A458;       --warn-soft:#352716;
+  --ok:#6FC79A;         --ok-soft:#16301F;
+  --info:#62A6F2;       --info-soft:#1A2A40;
+  --neutral:#98A1B1;    --neutral-soft:#222A36;
+
+  --rise:#F26C6A;       --rise-soft:#3A2024;
+  --fall:#62A6F2;       --fall-soft:#1A2A40;
+  --flat:#98A1B1;
+  --chart-grid:#242C38;
+  --band:#3A2024;
+  --masthead-rule:#8CC0EE;
+
+  --shadow-1:none;
+  --shadow-2:0 -6px 20px rgba(0,0,0,.45);
+}
+
+/* ============================================================================
+   브랜드 층 — Claude (DESIGN-claude.md 참조)
+   ----------------------------------------------------------------------------
+   <html data-brand="claude">를 선언한 화면에서만 적용된다. 선언하지 않은 화면은
+   위의 기본 토큰 그대로다. 바꾸는 것은 표면·잉크·경계·강조·제목 서체·그림자뿐이고,
+   상태색(danger·warn·ok·info·neutral)과 타입·간격·모서리 스케일은 기본 토큰을 쓴다.
+
+   강조색: 문서의 기본 코랄 #cc785c는 흰 글자 대비 3.3:1이라 버튼·글자에 쓰기에
+   모자라다. 라이트는 문서의 눌림색 #a9583e(흰 글자 5.1:1, 크림 위 글자 4.8:1)를
+   강조로 쓰고, 다크는 밝은 코랄 #d97757 위에 어두운 글자를 얹는다(5.9:1).
+
+   선택자 우선순위: 이 층은 기본 다크 블록보다 뒤에 있고 속성 선택자가 하나 더 붙어
+   있어 항상 이긴다. 브랜드 다크 블록은 브랜드 라이트 블록이 정의한 토큰을 전부
+   다시 정의해야 한다(빠뜨리면 다크에서 라이트 값이 남는다).
+   BI 토큰(--bi-*·--brand-*·--on-brand)은 이 층에서 재정의하지 않는다 — 이 층을 쓰는
+   화면(20번)은 BI 요소를 쓰지 않는다. 쓰게 되면 여기서 함께 정의한다.
+   ========================================================================== */
+:root[data-brand="claude"]{
+  --bg:#F5F0E8;           /* surface-soft — 페이지 바탕 */
+  --surface:#FAF9F5;      /* canvas — 패널·카드 */
+  --surface-2:#EFE9DE;    /* surface-card — 한 단계 들어간 면 */
+  --ink:#141413;
+  --ink-2:#3D3D3A;
+  --muted:#65635D;        /* 문서 #6c6a64를 살짝 낮춤 — surface-2 위 4.5:1 유지 */
+  --rule:#E6DFD8;         /* hairline */
+  --rule-strong:#C9BFB1;
+  --accent:#A9583E;
+  --accent-ink:#FFFFFF;
+  --accent-soft:#F4E6DC;
+  /* 그래프 계열색(2026-10-24 대표 승인, 29번 책자 9장). 선·막대 같은 비텍스트 그래픽용이다.
+     --surface 대비 4.8·10.3·4.7·3.5:1 — 비텍스트 기준 3:1 이상. 글자색으로는 쓰지 않는다(chart-4는 글자 4.5:1 미달).
+     chart-1은 --accent, chart-2는 --ink-2와 같은 값이지만 의미가 달라 이름을 따로 둔다. */
+  --chart-1:#A9583E;      /* 당월·주 계열 */
+  --chart-2:#3D3D3A;      /* 비교·합계 계열 */
+  --chart-3:#2F7D6E;
+  --chart-4:#B7791F;
+  --font-display:"Copernicus","Tiempos Headline",Georgia,"Noto Serif KR","Nanum Myeongjo",serif;
+  --shadow-1:0 1px 3px rgba(20,20,19,.06);
+  --shadow-2:0 8px 28px rgba(20,20,19,.12);
+}
+
+@media (prefers-color-scheme:dark){
+  :root[data-brand="claude"]:not([data-theme="light"]){
+    --bg:#1F1E1D;
+    --surface:#262624;
+    --surface-2:#30302E;
+    --ink:#FAF9F5;
+    --ink-2:#C3C0B6;
+    --muted:#A09D96;
+    --rule:#3A3936;
+    --rule-strong:#57554F;
+    --accent:#D97757;
+    --accent-ink:#141413;
+    --accent-soft:#3D2B24;
+    --chart-1:#D97757;
+    --chart-2:#C3C0B6;
+    --chart-3:#5DB8A6;
+    --chart-4:#E8A55A;
+    --font-display:"Copernicus","Tiempos Headline",Georgia,"Noto Serif KR","Nanum Myeongjo",serif;
+    --shadow-1:none;
+    --shadow-2:0 8px 28px rgba(0,0,0,.45);
+  }
+}
+
+:root[data-brand="claude"][data-theme="dark"]{
+  --bg:#1F1E1D;
+  --surface:#262624;
+  --surface-2:#30302E;
+  --ink:#FAF9F5;
+  --ink-2:#C3C0B6;
+  --muted:#A09D96;
+  --rule:#3A3936;
+  --rule-strong:#57554F;
+  --accent:#D97757;
+  --accent-ink:#141413;
+  --accent-soft:#3D2B24;
+  --chart-1:#D97757;
+  --chart-2:#C3C0B6;
+  --chart-3:#5DB8A6;
+  --chart-4:#E8A55A;
+  --font-display:"Copernicus","Tiempos Headline",Georgia,"Noto Serif KR","Nanum Myeongjo",serif;
+  --shadow-1:none;
+  --shadow-2:0 8px 28px rgba(0,0,0,.45);
+}
+
+/* ============================================================================
+   브랜드 층 — 옥색 (대표 지시 2026-10-08, PPT 문서서식 3종 전용)
+   ----------------------------------------------------------------------------
+   <html data-brand="jade">를 선언한 화면/문서에서만 적용. 상태색·타입·간격·모서리
+   스케일은 기본 토큰을 쓴다(3.8절과 같은 범위 원칙). ink·ink-2는 기본값 유지.
+   소비처: _디자인/문서서식/ PPT 3종(기획안·경영보고·교육자료 마스터)·교육 01 덱.
+   근거: _디자인/문서서식/양식_기준_기획안·보고서.md 14.2절.
+   ========================================================================== */
+:root[data-brand="jade"]{
+  --bg:#F2F7F5;
+  --surface:#FFFFFF;
+  --surface-2:#E3EFEA;
+  --rule:#D7E3DF;
+  --rule-strong:#A9BDB6;
+  --accent:#4C7A70;
+  --accent-ink:#FFFFFF;
+  --accent-soft:#E3EFEA;
+  --accent-deep:#2E6B57;   /* 신설 토큰 — 흰 바탕 위 강조 글자 전용(6.25:1) */
+  --muted:#5B6B66;
+}
+
+@media (prefers-color-scheme:dark){
+  :root[data-brand="jade"]:not([data-theme="light"]){
+    --bg:#11211B; --surface:#17251F; --surface-2:#1C2B25;
+    --rule:#28392F; --rule-strong:#44635A;
+    --accent:#6FC3A8; --accent-ink:#0E1319; --accent-soft:#1A3A30;
+    --accent-deep:#8EDCBF; --muted:#8FB3A8;
+  }
+}
+:root[data-brand="jade"][data-theme="dark"]{
+  --bg:#11211B; --surface:#17251F; --surface-2:#1C2B25;
+  --rule:#28392F; --rule-strong:#44635A;
+  --accent:#6FC3A8; --accent-ink:#0E1319; --accent-soft:#1A3A30;
+  --accent-deep:#8EDCBF; --muted:#8FB3A8;
+}
+
+/* ============================================================================
+   브랜드 층 — 오피스 (대표 승인 2026-10-28, 29번 기획실 Monthly Report 전용)
+   ----------------------------------------------------------------------------
+   <html data-brand="office">를 선언한 화면/문서에서만 적용된다(지금은 29번 변환기와 저장 HTML뿐).
+   파란 머리 띠·회색 바탕·엑셀식 표 머리글·오피스 기본 테마 그래프 계열색. 기존 값과 다른 브랜드 층은 고치지 않았다.
+   새 변수(--office-bar·--office-bar-ink·--tbl-head-bg·--tbl-total-bg·--tbl-total-rule)는 이 층에서만 정의한다(바탕 :root에는 없음).
+   다크 두 꼴은 이 라이트 층이 정의한 변수를 모두 다시 정의한다(선택자 우선순위가 같아, 빠진 변수는 라이트 값이 다크에 남는다).
+   그래프 계열색: 오피스 파랑·주황·회색·금색. 주황·금색은 흰 바탕 3:1 대비를 위해 한 단계 진하게 잡았다.
+   영문 제호 서체는 Windows 기본 서체만 쓴다(외부 서체 파일 없음).
+   ========================================================================== */
+:root[data-brand="office"]{
+  --bg:#F3F2F1;
+  --surface:#FFFFFF;
+  --surface-2:#FAF9F8;
+  --ink:#201F1E;
+  --ink-2:#323130;
+  --muted:#605E5C;
+  --rule:#E1DFDD;
+  --rule-strong:#C8C6C4;
+  --accent:#2B579A;
+  --accent-ink:#FFFFFF;
+  --accent-soft:#DEECF9;
+  --neutral-soft:#F3F2F1;
+  --office-bar:#2B579A;
+  --office-bar-ink:#FFFFFF;
+  --tbl-head-bg:#DDEBF7;
+  --tbl-total-bg:#F2F2F2;
+  --tbl-total-rule:#4472C4;
+  --chart-1:#4472C4;
+  --chart-2:#D46A1F;
+  --chart-3:#7F7F7F;
+  --chart-4:#A67C00;
+  --chart-grid:#EDEBE9;
+  --font-display:Cambria,Georgia,"Times New Roman",serif;
+}
+
+@media (prefers-color-scheme:dark){
+  :root[data-brand="office"]:not([data-theme="light"]){
+    --bg:#1F1F1F;
+    --surface:#292929;
+    --surface-2:#323232;
+    --ink:#F3F2F1;
+    --ink-2:#D2D0CE;
+    --muted:#A19F9D;
+    --rule:#3B3A39;
+    --rule-strong:#605E5C;
+    --accent:#6CA0DC;
+    --accent-ink:#1F1F1F;
+    --accent-soft:#172B45;
+    --neutral-soft:#323232;
+    --office-bar:#1B3A66;
+    --office-bar-ink:#FFFFFF;
+    --tbl-head-bg:#1E3A5F;
+    --tbl-total-bg:#323232;
+    --tbl-total-rule:#6CA0DC;
+    --chart-1:#6C9BE0;
+    --chart-2:#F4A261;
+    --chart-3:#B3B0AD;
+    --chart-4:#E6B800;
+    --chart-grid:#3B3A39;
+    --font-display:Cambria,Georgia,"Times New Roman",serif;
+  }
+}
+
+:root[data-brand="office"][data-theme="dark"]{
+  --bg:#1F1F1F;
+  --surface:#292929;
+  --surface-2:#323232;
+  --ink:#F3F2F1;
+  --ink-2:#D2D0CE;
+  --muted:#A19F9D;
+  --rule:#3B3A39;
+  --rule-strong:#605E5C;
+  --accent:#6CA0DC;
+  --accent-ink:#1F1F1F;
+  --accent-soft:#172B45;
+  --neutral-soft:#323232;
+  --office-bar:#1B3A66;
+  --office-bar-ink:#FFFFFF;
+  --tbl-head-bg:#1E3A5F;
+  --tbl-total-bg:#323232;
+  --tbl-total-rule:#6CA0DC;
+  --chart-1:#6C9BE0;
+  --chart-2:#F4A261;
+  --chart-3:#B3B0AD;
+  --chart-4:#E6B800;
+  --chart-grid:#3B3A39;
+  --font-display:Cambria,Georgia,"Times New Roman",serif;
+}

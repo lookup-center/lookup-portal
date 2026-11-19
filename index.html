@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ko" data-brand="claude">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>사건조회 | 다운로드 센터</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="page-portal">
+
+<svg class="defs" aria-hidden="true"><defs>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M9.6 9.5a2.5 2.5 0 0 1 4.8 1c0 1.7-2.4 2-2.4 3.5M12 17h.01"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="9" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M15.5 6.2a3 3 0 0 1 0 5.6M17 14.2a5.5 5.5 0 0 1 3.5 4.8"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-8 8"/><path d="M18 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M19.5 11A7.5 7.5 0 0 0 6 6.6L4.5 8M4.5 4v4h4"/><path d="M4.5 13A7.5 7.5 0 0 0 18 17.4l1.5-1.4M19.5 20v-4h-4"/></symbol>
+  <symbol id="i-win" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 16l-4-4 4-4M6 12h10"/></symbol>
+</defs></svg>
+
+<div id="member" class="app" hidden>
+  <header class="topbar">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect class="mk-bg" width="32" height="32" rx="8"/>
+        <path class="mk-ink" d="M18 24.5h-7.5A1.5 1.5 0 0 1 9 23V9a1.5 1.5 0 0 1 1.5-1.5H18l4.5 4.5v3.5M12.5 13h4.5M12.5 16.5h3"/>
+        <circle class="mk-ink" cx="20.2" cy="20.2" r="3"/><path class="mk-ink" d="M22.4 22.4l2.6 2.6"/>
+      </svg>
+      <span class="brand-name">사건조회<small>다운로드 센터</small></span>
+    </div>
+    <span class="spacer"></span>
+    <span class="top-note">조회와 결과 저장은 내 PC의 앱에서 합니다</span>
+  </header>
+
+  <div class="layout">
+    <nav class="sidemenu" aria-label="메뉴">
+      <div class="side-body">
+        <div class="side-head">메뉴</div>
+        <a class="menu-btn" href="#v-status"><svg class="ico"><use href="#i-user"/></svg>내 상태</a>
+        <a class="menu-btn" href="#v-files"><svg class="ico"><use href="#i-down"/></svg>설치 파일</a>
+        <a class="menu-btn" href="guide.html" target="_blank" rel="noopener"><svg class="ico"><use href="#i-help"/></svg>사용 안내<span class="sr-only">(새 탭)</span><svg class="ico ext" aria-hidden="true"><use href="#i-ext"/></svg></a>
+        <div class="menu-sep nav-admin"></div>
+        <a class="menu-btn nav-admin" href="#admin"><svg class="ico"><use href="#i-users"/></svg>회원 관리</a>
+      </div>
+      <div class="side-foot">
+        <p class="menu-foot">사건 자료는 이 사이트에 올리지 않습니다. 새로고침하면 다시 로그인해야 합니다.</p>
+        <div class="user-box">
+          <span class="avatar"><svg class="ico"><use href="#i-user"/></svg></span>
+          <div class="user-text"><span class="user-label">로그인 계정</span><p id="account" class="user-name"></p></div>
+        </div>
+        <button id="logout" class="btn btn-small" type="button"><svg class="ico"><use href="#i-out"/></svg>로그아웃</button>
+      </div>
+    </nav>
+
+    <main class="main">
+      <div class="panels">
+
+        <section id="v-files" class="panel" aria-labelledby="h-files">
+          <div class="panel-head">
+            <p class="eyebrow">설치 파일</p>
+            <h2 id="h-files">내려받기</h2>
+          </div>
+          <div class="grid2">
+            <article class="card">
+              <div class="file-top">
+                <span class="chip-ico"><svg class="ico"><use href="#i-win"/></svg></span>
+                <div><h3>Windows용 사건조회</h3><p class="meta">Windows 10·11 (64비트) · Microsoft Edge 필요</p></div>
+              </div>
+              <button id="download" class="btn btn-primary" type="button" disabled><svg class="ico"><use href="#i-down"/></svg>Windows 설치 파일 다운로드</button>
+              <p class="hint">승인된 회원만 받을 수 있습니다. 단추가 흐리면 내 상태에서 승인 여부를 확인하세요.</p>
+              <p class="hint">받은 뒤 설치 마법사를 따라 설치하고, 앱에서 같은 이메일로 로그인합니다.</p>
+            </article>
+            <article class="card csv-card">
+              <div class="file-top flush">
+                <span class="chip-ico"><svg class="ico"><use href="#i-file"/></svg></span>
+                <div><h3>대량조회 CSV 양식</h3><p class="meta">UTF-8 · 5열</p></div>
+              </div>
+              <p class="lead">첫 줄의 제목은 그대로 두고, 두 번째 줄부터 사건 한 건씩 입력하세요.</p>
+              <div class="cols"><span class="col-chip">법원명</span><span class="col-chip">사건번호</span><span class="col-chip">당사자명</span><span class="col-chip">은행코드</span><span class="col-chip">계좌번호</span></div>
+              <p class="hint">은행코드와 계좌번호는 텍스트로 입력해 앞자리 0을 보존하세요.</p>
+              <a class="btn btn-small template" href="template.csv" download="대량조회_입력양식.csv"><svg class="ico"><use href="#i-down"/></svg>CSV 양식 내려받기</a>
+            </article>
+          </div>
+        </section>
+
+        <section id="admin" class="panel" aria-labelledby="h-admin" hidden>
+          <div class="panel-head">
+            <p class="eyebrow">관리자</p>
+            <h2 id="h-admin">회원 관리</h2>
+            <p>승인 상태와 사용 종료일을 관리합니다. 종료일은 한국시간 기준 해당 날짜까지이며, 비워두면 기간 제한이 없습니다.</p>
+          </div>
+          <div class="tool-row">
+            <button id="reload-members" class="btn btn-small" type="button"><svg class="ico"><use href="#i-refresh"/></svg>목록 새로고침</button>
+          </div>
+          <div class="card table-card">
+            <div class="member-head" aria-hidden="true"><span>회원</span><span>승인 상태</span><span>사용 종료일</span><span></span></div>
+            <div id="member-list"></div>
+            <p class="list-empty">목록 새로고침을 누르면 회원 목록을 불러옵니다.</p>
+          </div>
+        </section>
+
+        <section id="v-status" class="panel" aria-labelledby="h-status">
+          <div class="panel-head">
+            <p class="eyebrow">내 상태</p>
+            <h2 id="h-status">이용 상태</h2>
+          </div>
+          <div class="card">
+            <div class="status-line">
+              <span class="led" aria-hidden="true"></span>
+              <div>
+                <p class="status-label">승인 상태</p>
+                <p id="membership-status"></p>
+              </div>
+            </div>
+            <p id="pending-help" class="note-warn" hidden>승인 신청이 접수되었습니다. 관리자의 승인을 기다려 주세요. 승인 여부는 이 화면에서 새로고침해 확인할 수 있습니다.</p>
+            <div class="row-actions">
+              <button id="refresh-access" class="btn btn-small" type="button"><svg class="ico"><use href="#i-refresh"/></svg>승인 상태 새로고침</button>
+              <a class="btn btn-small btn-primary go-files" href="#v-files"><svg class="ico"><use href="#i-down"/></svg>설치 파일 받으러 가기</a>
+            </div>
+          </div>
+          <ol class="steps" aria-label="이용 순서">
+            <li class="step s-join"><span class="step-no">1</span><div><strong>가입 신청</strong><p>이메일 인증으로 신청합니다.</p></div></li>
+            <li class="step s-approve"><span class="step-no">2</span><div><strong>관리자 승인</strong><p>승인되면 설치 파일을 받을 수 있습니다.</p></div></li>
+            <li class="step s-install"><span class="step-no">3</span><div><strong>설치와 앱 로그인</strong><p>앱에서 같은 이메일로 로그인합니다.</p></div></li>
+          </ol>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<section class="login-screen" aria-label="로그인">
+  <div class="login-card">
+    <svg class="login-mark" viewBox="0 0 32 32" aria-hidden="true">
+      <rect class="mk-bg" width="32" height="32" rx="8"/>
+      <path class="mk-ink" d="M18 24.5h-7.5A1.5 1.5 0 0 1 9 23V9a1.5 1.5 0 0 1 1.5-1.5H18l4.5 4.5v3.5M12.5 13h4.5M12.5 16.5h3"/>
+      <circle class="mk-ink" cx="20.2" cy="20.2" r="3"/><path class="mk-ink" d="M22.4 22.4l2.6 2.6"/>
+    </svg>
+    <h1 class="login-brand">사건조회</h1>
+    <p class="login-sub">다운로드 센터 · 회원 전용</p>
+
+    <form id="login" class="login-form">
+      <label class="sr-only" for="email">이메일</label>
+      <input id="email" class="login-input" type="email" autocomplete="email" required placeholder="이메일">
+      <label class="check-row"><input id="signup" type="checkbox"> 처음 이용합니다 · 회원가입 및 승인 신청</label>
+      <p class="login-hint">신규 가입은 이메일 인증 후 관리자 승인이 필요합니다.</p>
+      <button id="send" class="btn btn-primary login-submit">인증 코드 받기</button>
+    </form>
+
+    <form id="verify" class="login-form" hidden>
+      <label class="field-label" for="code">이메일로 받은 로그인 코드</label>
+      <input id="code" class="login-input code-input" inputmode="numeric" autocomplete="one-time-code" required pattern="[0-9]{6,10}" maxlength="10" placeholder="숫자 6~10자리">
+      <button class="btn btn-primary login-submit">로그인</button>
+      <div class="login-links">
+        <button type="button" id="resend" class="btn-link">새 코드 받기</button>
+        <span aria-hidden="true">·</span>
+        <button type="button" id="again" class="btn-link">다른 이메일 사용</button>
+      </div>
+    </form>
+
+    <div class="login-foot">
+      <p>가입·승인 관리에는 이메일과 이용 상태를 씁니다. 사건 조회 결과는 내 PC에 저장됩니다.</p>
+      <p class="foot-links"><a href="guide.html" target="_blank" rel="noopener">사용 안내</a> · <a href="template.csv" download="대량조회_입력양식.csv">CSV 양식 내려받기</a></p>
+    </div>
+  </div>
+</section>
+
+<p id="status" role="status" aria-live="polite"></p>
+
+<script src="config.js"></script><script src="portal.js" defer></script>
+</body>
+</html>

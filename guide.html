@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko" data-brand="claude">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>사건조회 사용 안내</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="page-guide">
+<header class="topbar">
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+      <rect class="mk-bg" width="32" height="32" rx="8"/>
+      <path class="mk-ink" d="M18 24.5h-7.5A1.5 1.5 0 0 1 9 23V9a1.5 1.5 0 0 1 1.5-1.5H18l4.5 4.5v3.5M12.5 13h4.5M12.5 16.5h3"/>
+      <circle class="mk-ink" cx="20.2" cy="20.2" r="3"/><path class="mk-ink" d="M22.4 22.4l2.6 2.6"/>
+    </svg>
+    <span class="brand-name">사건조회<small>사용 안내</small></span>
+  </div>
+  <span class="spacer"></span>
+  <a class="btn btn-small" href="index.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>다운로드 센터</a>
+</header>
+
+<div class="layout">
+  <nav class="sidemenu" aria-label="목차">
+    <div class="side-body">
+      <div class="side-head">목차</div>
+      <a class="menu-btn" href="#g1"><b>1</b>가입과 승인</a>
+      <a class="menu-btn" href="#g2"><b>2</b>설치와 앱 로그인</a>
+      <a class="menu-btn" href="#g3"><b>3</b>한 건 조회</a>
+      <a class="menu-btn" href="#g4"><b>4</b>대량조회</a>
+      <a class="menu-btn" href="#g5"><b>5</b>결과 확인</a>
+      <a class="menu-btn" href="#g6"><b>!</b>문제가 생겼을 때</a>
+      <a class="menu-btn" href="#g7"><b>+</b>업데이트와 제거</a>
+    </div>
+  </nav>
+
+  <main class="main">
+    <article class="doc">
+      <p class="eyebrow">사용 안내 · 1.1.0</p>
+      <h1>가입부터 결과 저장까지</h1>
+
+      <section id="g1" class="card"><h2><span class="no">1</span>가입과 승인</h2>
+        <p>처음 방문했다면 이메일을 입력하고 ‘처음 이용합니다’를 선택하세요. 받은 최신 인증 코드를 입력하면 승인 대기 상태를 확인할 수 있습니다. 관리자 승인 후 ‘승인 상태 새로고침’을 누르세요. 이미 가입했다면 체크하지 않고 로그인합니다.</p>
+      </section>
+      <section id="g2" class="card"><h2><span class="no">2</span>설치와 앱 로그인</h2>
+        <p>Windows 설치 파일을 실행하고 설치 위치, 기존 버전, 바로가기를 확인하세요. 설치 후 앱에서 같은 이메일로 코드를 받아 로그인합니다. Windows 10·11 64비트, Microsoft Edge와 인터넷 연결이 필요하며 Python 별도 설치는 필요 없습니다.</p>
+      </section>
+      <section id="g3" class="card"><h2><span class="no">3</span>한 건 조회</h2>
+        <p>법원, 사건번호, 당사자명, 은행과 계좌번호를 입력합니다. 저장 폴더를 선택하고 ‘한 건 조회’를 누릅니다. 조회 권한이 있는 사건의 정보를 입력하세요.</p>
+      </section>
+      <section id="g4" class="card"><h2><span class="no">4</span>대량조회</h2>
+        <p><a href="template.csv" download="대량조회_입력양식.csv">CSV 양식</a>의 제목줄을 유지하고 사건당 한 줄씩 입력하세요. 은행코드와 계좌번호는 텍스트로 다뤄 앞자리 0을 보존합니다. ‘대량 저장 폴더 선택’ 후 ‘CSV 목록 열기’로 실행하세요.</p>
+      </section>
+      <section id="g5" class="card"><h2><span class="no">5</span>결과 확인</h2>
+        <p>단건은 법원명·사건번호 폴더, 대량은 목록조회_날짜_시간 폴더에 저장됩니다. 조회결과.xlsx는 조회요약, 일반내용, 진행내용, 채권자현황, 변제현황, 시도이력 6개 시트로 구성됩니다. 모든 시트에 법원명과 사건번호가 표시됩니다. 화면 이미지는 일반내용·진행내용·변제현황으로 저장하며, 화면이 없거나 오류가 나면 일부 파일이 없을 수 있습니다.</p>
+      </section>
+      <section id="g6" class="card trouble"><h2><span class="no">!</span>문제가 생겼을 때</h2>
+        <ul>
+          <li>인증 코드가 만료되면 새 코드를 받고 가장 최근 메일의 숫자를 입력하세요. 재발송은 60초 후 가능합니다.</li>
+          <li>승인 대기·정지·만료는 관리자에게 확인하세요.</li>
+          <li>회원 서버에 연결되지 않으면 조회가 중단됩니다. 이미 받은 결과는 저장하며, 연결 복구 후 앱을 다시 실행하세요.</li>
+          <li>조회 오류는 결과 파일의 오류와 시도이력을 확인하세요. 일시적 오류는 최초 시도 후 최대 3회 재시도합니다.</li>
+          <li>설치 경로가 너무 길다는 안내가 나오면 기본 경로를 선택하세요.</li>
+        </ul>
+      </section>
+      <section id="g7" class="card"><h2><span class="no">+</span>업데이트와 제거</h2>
+        <p>업데이트는 저장 설정을 이어받고 이전 결과를 보존합니다. Windows 설정 → 앱 → 설치된 앱 → 사건조회 → 제거로 프로그램을 제거할 수 있습니다. 결과·설정·수정된 파일과 이전 수동 설치판은 남습니다.</p>
+      </section>
+    </article>
+  </main>
+</div>
+</body>
+</html>
